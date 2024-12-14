@@ -22,6 +22,7 @@ type Message struct {
 }
 
 func main() {
+	http.HandleFunc("/", homePage)
 	http.HandleFunc("/ws", handleConnections)
 
 	go handleMessages()
@@ -31,6 +32,10 @@ func main() {
 	if err != nil {
 		panic("Error starting server: " + err.Error())
 	}
+}
+
+func homePage(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Welcome to the Chat Room!")
 }
 
 func handleConnections(w http.ResponseWriter, r *http.Request) {
